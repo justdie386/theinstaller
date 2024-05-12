@@ -1,5 +1,0 @@
-target("editenv")
-    set_kind("shared")
-    add_files("*.cpp")
-    add_headerfiles("*.hpp", "*.h")
-    add_links("user32", "advapi32", "msi")
