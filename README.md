@@ -18,3 +18,10 @@ In the end, it should look roughly like this
 
 
 So yeah, build it yourself, don't build it yourself, all the instructions are there. If some files the visual studio project excepts just isn't there anymore because the release i used has become too outdated, just delete every file in the folder, and just drag the new ones at their place, because visual studio will refuse to compile if any file is missing. if you get an issue about a .dll.dlt file or something along the lines, just delete it, thats what i did.
+
+
+Below is a video showcasing it on a vm
+
+
+https://github.com/justdie386/theinstaller/assets/79466202/4b8b297c-839c-4276-8516-1409b51a5bdc
+
