@@ -13,7 +13,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Run a Bash script
-      shell: bash
-      run: |
-        curl google.com
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build app for release
+      run: msbuild lua.sln -t:rebuild -verbosity:diag -property:Configuration=Release
