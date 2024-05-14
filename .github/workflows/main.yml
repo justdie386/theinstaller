@@ -16,4 +16,4 @@ jobs:
     - name: Run a Bash script
       shell: bash
       run: |
-        echo "Hello, world!"
+        curl google.com
