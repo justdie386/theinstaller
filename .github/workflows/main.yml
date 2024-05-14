@@ -23,4 +23,4 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build app for release
-      run: devenv.exe lua.sln /Project lua\lua.vdproj /Rebuild "SetUps|Any CPU"
+      run: DevEnv lua/lua.vdproj /build Release
