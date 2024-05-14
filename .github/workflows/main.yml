@@ -18,9 +18,17 @@ jobs:
     - name: Disable Out of Process Building
       run: .\DisableOutOfProcBuild.exe
       working-directory: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild
-      
+
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
-
+    - name: Run a Bash script
+      shell: bash
+      run: |
+        echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
+        mkdir tools
+        mkdir mingw
+        mkdir lua
+        mkdir lua/luarocks
+        
     - name: Build app for release
       run: DevEnv lua/lua.vdproj /build Release
