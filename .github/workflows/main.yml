@@ -17,4 +17,4 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build app for release
-      run: msbuild lua.sln -t:rebuild -verbosity:diag -property:Configuration=Release
+      run: deven.exe lua.sln /Project lua\lua.vdproj /Rebuild "SetUps|Any CPU"
