@@ -1,0 +1,19 @@
+name: Simple Windows Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Run a Bash script
+      shell: bash
+      run: |
+        echo "Hello, world!"
