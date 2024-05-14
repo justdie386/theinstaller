@@ -27,7 +27,6 @@ jobs:
         echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
         mkdir tools
         mkdir mingw
-        mkdir lua
         mkdir lua/luarocks
         
     - name: Build app for release
