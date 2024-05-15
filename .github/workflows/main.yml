@@ -29,8 +29,8 @@ jobs:
           mkdir tools/make
           mkdir tools/cmake
           mkdir mingw
-          mkdir lua
-          mkdir lua/luarocks
+          mkdir lua_deps
+          mkdir lua_deps/luarocks
           curl "https://objects.githubusercontent.com/github-production-release-asset-2e65be/112254496/3bba5c3a-420e-4806-a3c2-b9116183ce66?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20240515%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240515T154645Z&X-Amz-Expires=300&X-Amz-Signature=14eeffbbe036f8abba660bf378d5212771fe81664c4600d9020dd389c8ceea11&X-Amz-SignedHeaders=host&actor_id=79466202&key_id=0&repo_id=112254496&response-content-disposition=attachment%3B%20filename%3Dllvm-mingw-20240502-msvcrt-x86_64.zip&response-content-type=application%2Foctet-stream" --output llvm-mingw.zip
           curl https://versaweb.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-bin.zip?viasf=1 --output make-bin.zip
           curl https://psychz.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-dep.zip?viasf=1 --output make-dep.zip
