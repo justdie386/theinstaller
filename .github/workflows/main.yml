@@ -24,6 +24,7 @@ jobs:
       - name: Run a Bash script
         shell: bash
         run: |
+          choco install wget -y
           echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
           mkdir tools
           mkdir tools/make
