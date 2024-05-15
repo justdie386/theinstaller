@@ -26,8 +26,19 @@ jobs:
       run: |
         echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
         mkdir tools
+        mkdir tools/make
+        mkdir tools/cmake
         mkdir mingw
         mkdir lua/luarocks
+        curl https://github.com/mstorsjo/llvm-mingw/releases/download/20240502/llvm-mingw-20240502-msvcrt-x86_64.zip
+        curl https://versaweb.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-bin.zip?viasf=1
+        curl https://psychz.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-dep.zip?viasf=1
+        curl https://objects.githubusercontent.com/github-production-release-asset-2e65be/537699/c9fb6165-96be-4dba-878c-5ed0f95fd7ee?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20240514%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240514T202225Z&X-Amz-Expires=300&X-Amz-Signature=1e0a6974ca9b359bdaf0b62765fa100e9f29edc7fef48160cebb68858fdec1d2&X-Amz-SignedHeaders=host&actor_id=79466202&key_id=0&repo_id=537699&response-content-disposition=attachment%3B%20filename%3Dcmake-3.29.3-windows-x86_64.zip&response-content-type=application%2Foctet-stream
+        unzip cmake-3.29.3-windows-x86_64.zip -d tools/cmake
+        unzip make-3.81-bin.zip -d tools/make
+        unzip make-3.81-dep.zip -d tools/make
+        unzip llvm-mingw-20240502-msvcrt-x86_64.zip -d mingw
+        
         
     - name: Build app for release
       run: DevEnv lua/lua.vdproj /build Release
