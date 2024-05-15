@@ -29,7 +29,8 @@ jobs:
           mkdir tools/make
           mkdir tools/cmake
           mkdir mingw
-          mkdir 
+          mkdir lua_deps
+          mkdir lua_deps/luarocks
           wget https://github.com/mstorsjo/llvm-mingw/releases/download/20240502/llvm-mingw-20240502-msvcrt-x86_64.zip -O llvm-mingw.zip
           wget https://gnuwin32.sourceforge.net/downlinks/make-bin-zip.php -O make-bin.zip
           wget https://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php -O make-dep.zip
