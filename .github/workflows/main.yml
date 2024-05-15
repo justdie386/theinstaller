@@ -10,35 +10,41 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Setup VS Dev Environment
-      uses: seanmiddleditch/gha-setup-vsdevenv@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup VS Dev Environment
+        uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
-    - name: Disable Out of Process Building
-      run: .\DisableOutOfProcBuild.exe
-      working-directory: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild
+      - name: Disable Out of Process Building
+        run: .\DisableOutOfProcBuild.exe
+        working-directory: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-    - name: Run a Bash script
-      shell: bash
-      run: |
-        echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
-        mkdir tools
-        mkdir tools/make
-        mkdir tools/cmake
-        mkdir mingw
-        mkdir lua/luarocks
-        curl https://github.com/mstorsjo/llvm-mingw/releases/download/20240502/llvm-mingw-20240502-msvcrt-x86_64.zip
-        curl https://versaweb.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-bin.zip?viasf=1
-        curl https://psychz.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-dep.zip?viasf=1
-        curl https://objects.githubusercontent.com/github-production-release-asset-2e65be/537699/c9fb6165-96be-4dba-878c-5ed0f95fd7ee?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20240514%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240514T202225Z&X-Amz-Expires=300&X-Amz-Signature=1e0a6974ca9b359bdaf0b62765fa100e9f29edc7fef48160cebb68858fdec1d2&X-Amz-SignedHeaders=host&actor_id=79466202&key_id=0&repo_id=537699&response-content-disposition=attachment%3B%20filename%3Dcmake-3.29.3-windows-x86_64.zip&response-content-type=application%2Foctet-stream
-        unzip cmake-3.29.3-windows-x86_64.zip -d tools/cmake
-        unzip make-3.81-bin.zip -d tools/make
-        unzip make-3.81-dep.zip -d tools/make
-        unzip llvm-mingw-20240502-msvcrt-x86_64.zip -d mingw
-        
-        
-    - name: Build app for release
-      run: DevEnv lua/lua.vdproj /build Release
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Run a Bash script
+        shell: bash
+        run: |
+          echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
+          mkdir tools
+          mkdir tools/make
+          mkdir tools/cmake
+          mkdir mingw
+          mkdir lua
+          mkdir lua/luarocks
+          curl "https://objects.githubusercontent.com/github-production-release-asset-2e65be/112254496/3bba5c3a-420e-4806-a3c2-b9116183ce66?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20240515%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240515T154645Z&X-Amz-Expires=300&X-Amz-Signature=14eeffbbe036f8abba660bf378d5212771fe81664c4600d9020dd389c8ceea11&X-Amz-SignedHeaders=host&actor_id=79466202&key_id=0&repo_id=112254496&response-content-disposition=attachment%3B%20filename%3Dllvm-mingw-20240502-msvcrt-x86_64.zip&response-content-type=application%2Foctet-stream" --output llvm-mingw.zip
+          curl https://versaweb.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-bin.zip?viasf=1 --output make-bin.zip
+          curl https://psychz.dl.sourceforge.net/project/gnuwin32/make/3.81/make-3.81-dep.zip?viasf=1 --output make-dep.zip
+          curl "https://objects.githubusercontent.com/github-production-release-asset-2e65be/537699/c9fb6165-96be-4dba-878c-5ed0f95fd7ee?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20240515%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240515T153702Z&X-Amz-Expires=300&X-Amz-Signature=a0c0272925187bd043a5bf67433f7d6e140218eb7a2ca410b67c735cb6315c24&X-Amz-SignedHeaders=host&actor_id=79466202&key_id=0&repo_id=537699&response-content-disposition=attachment%3B%20filename%3Dcmake-3.29.3-windows-x86_64.zip&response-content-type=application%2Foctet-stream" --output cmake.zip
+          unzip cmake 'cmake-3.29.3-windows-x86_64/*' -d tools/cmake
+          unzip make-bin -d tools/make
+          unzip make-dep -d tools/make
+          unzip llvm-mingw -d mingw
+          echo "cleaning up..."
+          rm -rf make-bin.zip
+          rm -rf make-dep.zip
+          rm -rf cmake.zip
+          rm -rf llvm-mingw.zip
+          echo "We're done here, moving on"
+
+      - name: Build app for release
+        run: DevEnv lua/lua.vdproj /build Release
