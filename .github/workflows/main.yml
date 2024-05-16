@@ -76,8 +76,6 @@ jobs:
           rm -rf lua-utils.zip
           echo "building editenv"
           cd editenv
-          xmake f --toolchain=msvc
-          xmake
           cd ..
           echo "letting the system breath, might be causing issues"
           
