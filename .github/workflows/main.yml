@@ -81,6 +81,13 @@ jobs:
           cd ..
           echo "letting the system breath, might be causing issues"
           
+      - name : build editenv
+        run: |
+          xmake f --toolchain=msvc
+          xmake
+      - uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+              arch: x64
       - name: upload lua.msi
         run: DevEnv lua/lua.vdproj /build Release
       - uses : actions/upload-artifact@v4
