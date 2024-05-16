@@ -29,7 +29,7 @@ jobs:
           mkdir tools
           mkdir tools/make
           mkdir tools/cmake
-          mkdir mingw
+          mkdir llvm-mingw-20240502-msvcrt-x86_64
           mkdir lua_deps
           mkdir lua_deps/include
           mkdir lua_deps/lib
@@ -55,7 +55,7 @@ jobs:
           mv cmake-3.29.3-windows-x86_64/* tools/cmake
           unzip make-bin -d tools/make
           unzip make-dep -d tools/make
-          unzip llvm-mingw -d mingw
+          unzip llvm-mingw -d llvm-mingw-20240502-msvcrt-x86_64
           mv config.lua luarocks/bin
           echo "cleaning up..."
           rm -rf lua_bin.zip
