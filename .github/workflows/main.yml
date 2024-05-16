@@ -80,6 +80,7 @@ jobs:
           echo "letting the system breath, might be causing issues"
           
       - name : setup msvc
+        run: "echo setting up msvc"
       - uses: TheMrMilchmann/setup-msvc-dev@v3
         with:
               arch: x64
