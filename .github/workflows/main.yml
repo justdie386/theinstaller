@@ -1,4 +1,4 @@
-name: Simple Windows Action
+name: lua/luarocks msi creator
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: setup editenv
+      - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: latest
@@ -25,7 +25,8 @@ jobs:
       
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
-      - name: Run a Bash script
+        
+      - name: Bootstrap the dependencies
         shell: bash
         run: |
           choco install wget -y
@@ -79,7 +80,13 @@ jobs:
           xmake
           cd ..
           echo "letting the system breath, might be causing issues"
-
-      
-      - name: Build app for release
+          
+      - name: Compile msi
         run: DevEnv lua/lua.vdproj /build Release
+        
+      - name: upload lua.msi
+      - uses : actions/upload-artifact@v4
+        with: 
+          name: lua.msi
+          path: lua\Release\
+            
