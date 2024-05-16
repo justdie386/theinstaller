@@ -48,6 +48,7 @@ jobs:
           wget https://github.com/Kitware/CMake/releases/download/v3.29.3/cmake-3.29.3-windows-x86_64.zip -O cmake.zip
           unzip lua_bin -d lua_deps/bin
           unzip lua_bin 'lua51.dll' -d lua_deps/lib
+          unzip lua_utils 'lua5.1.dll' -d lua_deps/lib
           unzip luarocks
           mv luarocks-3.11.0-windows-64/* luarocks/bin
           unzip lua_utils 'include/lualib.h' -d lua_deps
@@ -60,6 +61,7 @@ jobs:
           unzip make-bin -d tools
           unzip make-dep -d tools
           unzip llvm-mingw
+          touch tools/README.txt #no idea why its needed
           mv config.lua luarocks/bin
           echo "cleaning up..."
           rm -rf lua_bin.zip
@@ -71,7 +73,10 @@ jobs:
           rm -rf llvm-mingw.zip
           rm -rf luarocks.zip
           rm -rf lua-utils.zip
-          echo "We're done here, moving on"
+          echo "building editenv"
+          cd editenv
+          xmake
+          cd ..
           echo "letting the system breath, might be causing issues"
 
       
