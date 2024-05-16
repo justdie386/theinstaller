@@ -51,7 +51,8 @@ jobs:
           unzip lua_utils 'include/lua.hpp' -d lua_deps/include
           unzip lua_utils 'include/lauxlib.h' -d lua_deps/include
           unzip lua_utils 'lua5.1.dll' -d lua_deps/lib
-          unzip -j cmake 'cmake-3.29.3-windows-x86_64/*' -d tools/cmake
+          unzip cmake
+          mv cmake/* -d tools/cmake
           unzip make-bin -d tools/make
           unzip make-dep -d tools/make
           unzip llvm-mingw -d mingw
@@ -62,6 +63,7 @@ jobs:
           rm -rf make-bin.zip
           rm -rf make-dep.zip
           rm -rf cmake.zip
+          rm -rf cmake
           rm -rf llvm-mingw.zip
           echo "We're done here, moving on"
 
