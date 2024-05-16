@@ -10,15 +10,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: setup editenv
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Setup VS Dev Environment
         uses: seanmiddleditch/gha-setup-vsdevenv@v4
-
+          
       - name: Disable Out of Process Building
         run: .\DisableOutOfProcBuild.exe
         working-directory: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild
-
+      
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
       - name: Run a Bash script
@@ -27,8 +31,6 @@ jobs:
           choco install wget -y
           echo "setting up the dependencies..."
           mkdir tools
-          mkdir tools/make
-          mkdir tools/cmake
           mkdir llvm-mingw-20240502-msvcrt-x86_64
           mkdir lua_deps
           mkdir lua_deps/include
@@ -45,17 +47,19 @@ jobs:
           wget https://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php -O make-dep.zip
           wget https://github.com/Kitware/CMake/releases/download/v3.29.3/cmake-3.29.3-windows-x86_64.zip -O cmake.zip
           unzip lua_bin -d lua_deps/bin
-          unzip luarocks -d luarocks/bin
-          unzip lua_utils 'include/lualib.h' -d lua_deps/include
-          unzip lua_utils 'include/luaconf.h' -d lua_deps/include
-          unzip lua_utils 'include/lua.hpp' -d lua_deps/include
-          unzip lua_utils 'include/lauxlib.h' -d lua_deps/include
-          unzip lua_utils 'lua5.1.dll' -d lua_deps/lib
+          unzip lua_utils 'lua51.dll' -d lua_deps/lib
+          unzip luarocks
+          mv luarocks-3.11.0-windows-64/* luarocks/bin
+          unzip lua_utils 'include/lualib.h' -d lua_deps
+          unzip lua_utils 'include/luaconf.h' -d lua_deps
+          unzip lua_utils 'include/lua.hpp' -d lua_deps
+          unzip lua_utils 'include/lauxlib.h' -d lua_deps
+          unzip lua_utils 'include/lua.h' -d lua_deps
           unzip cmake
-          mv cmake-3.29.3-windows-x86_64/* tools/cmake
-          unzip make-bin -d tools/make
-          unzip make-dep -d tools/make
-          unzip llvm-mingw -d llvm-mingw-20240502-msvcrt-x86_64
+          mv cmake-3.29.3-windows-x86_64/* tools
+          unzip make-bin -d tools
+          unzip make-dep -d tools
+          unzip llvm-mingw
           mv config.lua luarocks/bin
           echo "cleaning up..."
           rm -rf lua_bin.zip
@@ -65,9 +69,11 @@ jobs:
           rm -rf cmake.zip
           rm -rf cmake-3.29.3-windows-x86_64
           rm -rf llvm-mingw.zip
+          rm -rf luarocks.zip
+          rm -rf lua-utils.zip
           echo "We're done here, moving on"
           echo "letting the system breath, might be causing issues"
-          sleep 5
 
+      
       - name: Build app for release
         run: DevEnv lua/lua.vdproj /build Release
