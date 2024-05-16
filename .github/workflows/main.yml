@@ -51,10 +51,7 @@ jobs:
           unzip lua_utils 'include/lua.hpp' -d lua_deps/include
           unzip lua_utils 'include/lauxlib.h' -d lua_deps/include
           unzip lua_utils 'lua5.1.dll' -d lua_deps/lib
-          unzip cmake 'cmake-3.29.3-windows-x86_64/share' -d tools/cmake
-          unzip cmake 'cmake-3.29.3-windows-x86_64/man' -d tools/cmake
-          unzip cmake 'cmake-3.29.3-windows-x86_64/doc' -d tools/cmake
-          unzip cmake 'cmake-3.29.3-windows-x86_64/bin' -d tools/cmake
+          unzip -j cmake 'cmake-3.29.3-windows-x86_64/*' -d tools/cmake
           unzip make-bin -d tools/make
           unzip make-dep -d tools/make
           unzip llvm-mingw -d mingw
