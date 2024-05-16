@@ -47,7 +47,7 @@ jobs:
           wget https://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php -O make-dep.zip
           wget https://github.com/Kitware/CMake/releases/download/v3.29.3/cmake-3.29.3-windows-x86_64.zip -O cmake.zip
           unzip lua_bin -d lua_deps/bin
-          unzip lua_utils 'lua51.dll' -d lua_deps/lib
+          unzip lua_bin 'lua51.dll' -d lua_deps/lib
           unzip luarocks
           mv luarocks-3.11.0-windows-64/* luarocks/bin
           unzip lua_utils 'include/lualib.h' -d lua_deps
