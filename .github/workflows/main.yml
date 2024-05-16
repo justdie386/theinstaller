@@ -25,22 +25,41 @@ jobs:
         shell: bash
         run: |
           choco install wget -y
-          echo "work in progress this is going to fail, this part of the script is meant to setup the files into the proper directories"
+          echo "setting up the dependencies...
           mkdir tools
           mkdir tools/make
           mkdir tools/cmake
           mkdir mingw
           mkdir lua_deps
-          mkdir lua_deps/luarocks
+          mkdir lua_deps
+          mkdir luarocks
+          mkdir luarocks/bin
+          wget https://raw.githubusercontent.com/justdie386/theinstaller/main/config.lua
+          wget https://sourceforge.net/projects/luabinaries/files/5.1.5/Tools%20Executables/lua-5.1.5_Win64_bin.zip/download -O lua_bin.zip
+          wget https://sourceforge.net/projects/luabinaries/files/5.1.5/Windows%20Libraries/Dynamic/lua-5.1.5_Win64_dll17_lib.zip/download -O lua_utils.zip
+          wget https://luarocks.org/releases/luarocks-3.11.0-windows-64.zip -O luarocks.zip
           wget https://github.com/mstorsjo/llvm-mingw/releases/download/20240502/llvm-mingw-20240502-msvcrt-x86_64.zip -O llvm-mingw.zip
           wget https://gnuwin32.sourceforge.net/downlinks/make-bin-zip.php -O make-bin.zip
           wget https://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php -O make-dep.zip
           wget https://github.com/Kitware/CMake/releases/download/v3.29.3/cmake-3.29.3-windows-x86_64.zip -O cmake.zip
-          unzip cmake 'cmake-3.29.3-windows-x86_64/*' -d tools/cmake
+          unzip lua_bin -d lua_deps/bin
+          unzip luarocks -d luarocks/bin
+          unzip lua_utils 'include/lualib.h' -d lua_deps/include
+          unzip lua_utils 'include/luaconf.h' -d lua_deps/include
+          unzip lua_utils 'include/lua.hpp' -d lua_deps/include
+          unzip lua_utils 'include/lauxlib.h' -d lua_deps/include
+          unzip lua_utils 'lua5.1.dll' -d lua_deps/lib
+          unzip cmake 'cmake-3.29.3-windows-x86_64/share' -d tools/cmake
+          unzip cmake 'cmake-3.29.3-windows-x86_64/man' -d tools/cmake
+          unzip cmake 'cmake-3.29.3-windows-x86_64/doc' -d tools/cmake
+          unzip cmake 'cmake-3.29.3-windows-x86_64/bin' -d tools/cmake
           unzip make-bin -d tools/make
           unzip make-dep -d tools/make
           unzip llvm-mingw -d mingw
+          mv config.lua luarocks/bin
           echo "cleaning up..."
+          rm -rf lua_bin.zip
+          rm -rf lua_inc.zip
           rm -rf make-bin.zip
           rm -rf make-dep.zip
           rm -rf cmake.zip
