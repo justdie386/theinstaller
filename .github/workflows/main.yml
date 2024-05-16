@@ -66,6 +66,8 @@ jobs:
           rm -rf cmake-3.29.3-windows-x86_64
           rm -rf llvm-mingw.zip
           echo "We're done here, moving on"
+          echo "letting the system breath, might be causing issues"
+          sleep 5
 
       - name: Build app for release
         run: DevEnv lua/lua.vdproj /build Release
