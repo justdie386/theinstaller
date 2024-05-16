@@ -31,7 +31,9 @@ jobs:
           mkdir tools/cmake
           mkdir mingw
           mkdir lua_deps
-          mkdir lua_deps
+          mkdir lua_deps/include
+          mkdir lua_deps/lib
+          mkdir lua_deps/bin
           mkdir luarocks
           mkdir luarocks/bin
           wget https://raw.githubusercontent.com/justdie386/theinstaller/main/config.lua
