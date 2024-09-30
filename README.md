@@ -16,3 +16,6 @@ Remove the env variables that have been set by editenv during hte installer when
 Possibly re-writing an editenv altnerative in C to avoid the license and keep it in the same repo
 Work out a second installer which doesn't have the mingw toolchain bundled
 Setup the changes needed to allow for more than one lua version at a time
+
+
+I am aware of the current licensing issues with editenv, as it is GPL something and i modified it a little to make it work with the current project, and this project is going to be BSD+3, i will therefore rewrite my own very simple version but for now, please don't talk about it...
